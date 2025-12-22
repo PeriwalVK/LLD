@@ -17,7 +17,6 @@ class BoardGame(ABC):
 
 class TicTacToeGame(BoardGame):
     def __init__(self, board_size=3):
-        # self.board_size = board_size
         self.player_cnt = 2
         self.board = Board(board_size)
         self.players = [
@@ -27,8 +26,6 @@ class TicTacToeGame(BoardGame):
 
         self.current_player_idx = 0
         self.game_state = GameState.IN_PROGRESS
-        # self.game_overFalse
-        # self.draw = False
         self.winner_idx: int = -1
 
     def play(self):

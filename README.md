@@ -17,4 +17,4 @@ root_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # path
 
 """ Add that folder to the list of places Python looks for modules """
 if root_folder not in sys.path:
-    sys.path.insert(0, root_folder) # adds root_folder to start of sys.path liost, so it gets prioritised
+    sys.path.insert(0, root_folder) # adds root_folder to start of sys.path list, so it gets prioritised
