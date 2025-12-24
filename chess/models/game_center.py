@@ -5,17 +5,14 @@ from typing import List
 from chess.constants import Colour, GameStatus
 from chess.models.board import Board
 from chess.models.move import Move
-from chess.models.player import PlayerFactory
+from chess.models.player import Player, PlayerFactory
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, player_white: Player, player_black: Player):
         self.board = Board()
-        # self.player_white = Player("player_white", Colour.WHITE)
-        # self.player_black = Player("player_black", Colour.BLACK)
-
-        self.player_white = PlayerFactory.get_player("player_white", Colour.WHITE, is_human=True)
-        self.player_black = PlayerFactory.get_player("player_black", Colour.BLACK, is_human=True)
+        self.player_white = player_white
+        self.player_black = player_black
 
         self._players = [self.player_white, self.player_black]
         self._players_cnt = 2

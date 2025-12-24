@@ -17,18 +17,20 @@ if root_folder not in sys.path:
 #     print(path)
 
 
-from chess.models.game_center import Game
-from chess.constants import Colour
-from chess.models.player import PlayerFactory
-
+from snake_and_food.models.game import Game
+from snake_and_food.models.game_observer import GameObserver
 
 if __name__ == "__main__":
-    
-    player_white = PlayerFactory.get_player("player_white", Colour.WHITE, is_human=True)
-    player_black = PlayerFactory.get_player("player_black", Colour.BLACK, is_human=True)
 
-    g = Game(player_white, player_black)
+    rows, cols = map(int, input("Enter rows and cols (separated by space): ").split())
+
     
+    g = Game(rows, cols, walled=False)
+    game_observer = GameObserver(g)
+    g.register_observer(game_observer)
     g.initialise()
     g.play()
+    # g.display_board()
+
+    # g.board.generate_food()
     
