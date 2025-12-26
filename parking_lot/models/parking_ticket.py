@@ -17,7 +17,7 @@ class ParkingTicket:
     def punch_in(self, entry_epoch: int) -> None:
         self.set_entry_epoch(entry_epoch)
         self.status = ParkingTicketStatus.IN
-        self.parking_spot.occupy()
+        self.parking_spot.occupy(self.vehicle)
     
     def punch_out(self, exit_epoch: int) -> None:
         self.set_exit_epoch(exit_epoch)

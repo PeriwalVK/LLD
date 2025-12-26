@@ -28,6 +28,9 @@ class ParkingLot:
         }
 
         self.total_earnings = 0
+
+    def set_parking_strategy(self, parking_strategy: Parkingstrategy):
+        self.parking_strategy = parking_strategy
     
     def _vehicle_enters(self, ticket: ParkingTicket, entry_epoch: int):
         ticket.punch_in(entry_epoch)
@@ -43,25 +46,26 @@ class ParkingLot:
 
     def park_vehicle(self, vehicle: Vehicle, entry_epoch: int, fare_strategy: FareStrategy) -> ParkingTicket:
         try:
-            parking_spot: ParkingSpot = self.parking_strategy.fetch_parking_spot(self, vehicle.vehicle_type)
+            print(f"[ParkingLot]: {vehicle.vehicle_type.value} {vehicle.vehicle_number} is trying to enter the parking lot...")
+            parking_spot: ParkingSpot = self.parking_strategy.fetch_parking_spot(self.parking_spots, vehicle.vehicle_type)
 
             ticket = ParkingTicket(vehicle, parking_spot, fare_strategy)
             self._vehicle_enters(ticket, entry_epoch)
-            print(f"[ParkingLot]: Vehicle {vehicle.vehicle_number} has been parked at {parking_spot.spot_id}. Ticket Number: {ticket.id}")
+            print(f"[ParkingLot]: {vehicle.vehicle_type.value} {vehicle.vehicle_number} has been parked at {parking_spot.spot_id}. Ticket Number: {ticket.id}\n")
             return ticket
         except NoParkingSpotAvailableException as e:
-            print(f"[ParkingLot]: No Parking Spot Available for Vehicle {vehicle.vehicle_number}...")
+            print(f"[ParkingLot]: No Parking Spot Available for {vehicle.vehicle_type.value} {vehicle.vehicle_number}...\n")
     
     def _increase_earnings(self, fare: int):
         self.total_earnings += fare
         print(f"[ParkingLot]: Total Earnings: ${self.total_earnings}")
 
     def unpark_vehicle(self, ticket: ParkingTicket, exit_epoch: int, payment_strategy: PaymentStrategy) -> None:
-
+        print(f"[ParkingLot]: {ticket.vehicle.vehicle_type.value} {ticket.vehicle.vehicle_number} is trying to exit the parking lot...")
         fare = ticket.calculate_fare(exit_epoch)
         ticket.make_payment(fare, payment_strategy)
         self._vehicle_exits(ticket, exit_epoch)
         self._increase_earnings(fare)
 
-        print(f"[ParkingLot]: Vehicle {ticket.vehicle.vehicle_number} Exited the Parking Lot.")
+        print(f"[ParkingLot]: {ticket.vehicle.vehicle_type.value} {ticket.vehicle.vehicle_number} Exited the Parking Lot.\n")
 

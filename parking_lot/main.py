@@ -15,22 +15,23 @@ if root_folder not in sys.path:
 from parking_lot.constants import VehicleType
 from parking_lot.models.parking_lot import ParkingLot
 from parking_lot.models.strategy.fare_strategy import SimpleFareStrategy
-from parking_lot.models.strategy.parking_strategy import GreedyParkingStrategy, Parkingstrategy
+from parking_lot.models.strategy.parking_strategy import GreedyParkingStrategy, OptimisedParkingStrategy, Parkingstrategy
 from parking_lot.models.vehicle import Vehicle
 from parking_lot.models.strategy.payment_strategy import CardPaymentStrategy, CashPaymentStrategy, UPIPaymentStrategy
 
 
 
 if __name__ == "__main__":
-    parking_strategy: Parkingstrategy = GreedyParkingStrategy()
-    
+    simple_parking_strategy: Parkingstrategy = GreedyParkingStrategy()
+    optimised_parking_strategy: Parkingstrategy = OptimisedParkingStrategy()
+
     simple_fare_strategy = SimpleFareStrategy()
     
     cash_payment_strategy = CashPaymentStrategy()
     card_payment_strategy = CardPaymentStrategy()
     upi_payment_strategy = UPIPaymentStrategy()
 
-    p = ParkingLot(parking_strategy)
+    p = ParkingLot(optimised_parking_strategy)
 
     v1: Vehicle = Vehicle("KA-01-HH-1234", VehicleType.CAR)
     v2: Vehicle = Vehicle("KA-02-HH-1235", VehicleType.BIKE)

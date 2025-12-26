@@ -11,10 +11,9 @@ class ParkingTicketStatus(Enum):
     OUT = "OUT"
 
 class DefaultValues:
-    
-    CAR_SPOT_COUNT = 2
-    BIKE_SPOT_COUNT = 1
-    TRUCK_SPOT_COUNT = 1
+    BIKE_SPOT_COUNT = 1    
+    CAR_SPOT_COUNT = 1
+    TRUCK_SPOT_COUNT = 4
 
     PARKING_LOT_SIZE = CAR_SPOT_COUNT + BIKE_SPOT_COUNT + TRUCK_SPOT_COUNT
 
