@@ -18,6 +18,7 @@ from logging_system.observer_pattern.log_subject import LogSubject
 
 
 class LogManager:
+    @staticmethod
     def build_logger_chain() -> AbstractLogger:
         info_logger: AbstractLogger = InfoLogger()
         error_logger: AbstractLogger = ErrorLogger()
@@ -30,6 +31,7 @@ class LogManager:
 
         return info_logger
 
+    @staticmethod
     def build_log_subject():
         subject: LogSubject = LogSubject()
 
