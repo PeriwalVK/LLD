@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import override
 
-from cache_system.models.concurrent_hashmap import ConcurrentHashMap
+from cache_system.utility_classes.concurrent_hashmap import ConcurrentHashMap
 
 
 class DBStorageInterface(ABC):
