@@ -25,50 +25,44 @@ if __name__ == "__main__":
 
     kafkaController: KafkaController = KafkaController()
 
-    # // Create topics.
+    # Create topics.
     topic1: Topic = kafkaController.create_topic("Topic1")
     topic2: Topic = kafkaController.create_topic("Topic2")
 
-    # // Create subscribers.
+    # Create subscribers.
     subscriber1: ISubscriber = SimpleSubscriber()
     subscriber2: ISubscriber = SimpleSubscriber()
     subscriber3: ISubscriber = SimpleSubscriber()
 
-    # // Subscribe: subscriber1 subscribes to both topics,
-    # // subscriber2 subscribes to topic1, and subscriber3 subscribes to topic2.
+    # Subscribe: subscriber1 subscribes to both topics,
+    # subscriber2 subscribes to topic1, and subscriber3 subscribes to topic2.
     kafkaController.subscribe(subscriber1, topic1.get_id())
     kafkaController.subscribe(subscriber2, topic1.get_id())
 
     kafkaController.subscribe(subscriber1, topic2.get_id())
     kafkaController.subscribe(subscriber3, topic2.get_id())
 
-    # // Create publishers.
+    # Create publishers.
     publisher1: IPublisher = SimplePublisher(kafkaController)
     publisher2: IPublisher = SimplePublisher(kafkaController)
 
-    # // Publish some messages.
+    # Publish some messages.
     publisher1.publish(topic1.get_id(), Message("Message m1"))
     publisher1.publish(topic1.get_id(), Message("Message m2"))
     publisher2.publish(topic2.get_id(), Message("Message m3"))
-    # // Allow time for subscribers to process messages.
-    # try:
+    # Allow time for subscribers to process messages.
     time.sleep(5)
-    # except Exception as e:
-    #     e.printStackTrace();
-    # }
+
     print("\n\n\n")
     publisher2.publish(topic2.get_id(), Message("Message m4"))
     publisher1.publish(topic1.get_id(), Message("Message m5"))
 
-    # // Reset offset for subscriber1 on topic1 (for example, to re-process messages).
+    # Reset offset for subscriber1 on topic1 (for example, to re-process messages).
     kafkaController.resetOffset(topic1.get_id(), subscriber1, 0)
 
-    # // Allow some time before shutting down.
-    # try:
+    # Allow some time before shutting down.
     print("before final sleep")
     time.sleep(5)
     print("after final sleep")
-    # } catch (InterruptedException e) {
-    #     e.printStackTrace();
-    # }
+
     kafkaController.shutdown()
