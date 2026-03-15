@@ -10,6 +10,7 @@ class ParkingTicket:
         self.id = f"{vehicle.vehicle_number}_{parking_spot.spot_id}"
         self.vehicle: Vehicle = vehicle
         self.parking_spot: ParkingSpot = parking_spot
+        self.fare: float = None
         self.fare_strategy: FareStrategy = fare_strategy
         self.entry_epoch: int = None
         self.exit_epoch: int = None
@@ -30,11 +31,12 @@ class ParkingTicket:
     def set_exit_epoch(self, exit_epoch: int) -> None:
         self.exit_epoch = exit_epoch
     
-    def calculate_fare(self, exit_epoch: int) -> int:
-        return self.fare_strategy.calculate_fare(self.vehicle.vehicle_type, exit_epoch - self.entry_epoch)
+    def calculate_fare(self, exit_epoch: int) -> float:
+        self.fare = self.fare_strategy.calculate_fare(self.vehicle.vehicle_type, exit_epoch - self.entry_epoch)
+        return self.fare
     
-    def make_payment(self, fare: int, payment_strategy: PaymentStrategy) -> None:
-        payment_strategy.make_payment(fare)
+    # def make_payment(self, fare: int, payment_strategy: PaymentStrategy) -> None:
+    #     payment_strategy.make_payment(fare)
     
     
 
