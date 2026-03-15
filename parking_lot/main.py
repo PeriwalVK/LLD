@@ -6,6 +6,7 @@ import sys
 
 
 
+
 root_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 if root_folder not in sys.path:
@@ -13,6 +14,7 @@ if root_folder not in sys.path:
 
 
 from parking_lot.constants import VehicleType
+from parking_lot.models.parking_ticket import ParkingTicket
 from parking_lot.models.parking_lot import ParkingLot
 from parking_lot.models.strategy.fare_strategy import SimpleFareStrategy
 from parking_lot.models.strategy.parking_strategy import GreedyParkingStrategy, OptimisedParkingStrategy, Parkingstrategy
@@ -44,11 +46,11 @@ if __name__ == "__main__":
     v4: Vehicle = Vehicle("KA-04-HH-1237", VehicleType.BIKE)
     v5: Vehicle = Vehicle("KA-05-HH-1238", VehicleType.CAR)
 
-    t1 = parking_lot.park_vehicle(v1, 0, simple_fare_strategy, optimised_parking_strategy)
-    t2 = parking_lot.park_vehicle(v2, 10, simple_fare_strategy, optimised_parking_strategy)
-    t3 = parking_lot.park_vehicle(v3, 20, simple_fare_strategy, optimised_parking_strategy)
-    t4 = parking_lot.park_vehicle(v4, 30, simple_fare_strategy, optimised_parking_strategy)
-    t5 = parking_lot.park_vehicle(v5, 40, simple_fare_strategy, optimised_parking_strategy)
+    t1: ParkingTicket  = parking_lot.park_vehicle(v1, 0, simple_fare_strategy, optimised_parking_strategy)
+    t2: ParkingTicket = parking_lot.park_vehicle(v2, 10, simple_fare_strategy, optimised_parking_strategy)
+    t3: ParkingTicket = parking_lot.park_vehicle(v3, 20, simple_fare_strategy, optimised_parking_strategy)
+    t4: ParkingTicket = parking_lot.park_vehicle(v4, 30, simple_fare_strategy, optimised_parking_strategy)
+    t5: ParkingTicket = parking_lot.park_vehicle(v5, 40, simple_fare_strategy, optimised_parking_strategy)
 
     print("")
 
