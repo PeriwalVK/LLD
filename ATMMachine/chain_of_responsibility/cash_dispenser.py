@@ -34,17 +34,8 @@ class CashDispenser:
         )
         for note_cnt in range(_max_notes, -1, -1):
             remaining_amt = amount - note_cnt * self.note_type.value
-            # if remaining_amt:
-            #     if self.next:
-            #         if self.next.can_dispense(atm_machine, remaining_amt):
-            #             self._soft_count = note_cnt
-            #             return True
-            #     else:
-            #         return False
-            # else:
-            #     self._soft_count = note_cnt
-            #     return True
-            if (not remaining_amt) or (
+
+            if (remaining_amt == 0) or (
                 self.next and self.next.can_dispense(atm_machine, remaining_amt)
             ):
                 self._soft_count = note_cnt
