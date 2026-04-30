@@ -6,12 +6,10 @@ from logging_system.observer_pattern.log_subject import LogSubject
 
 class Logger:
     def __init__(self):
-        self._logger_chain: AbstractLogger = (
-            LogManager.build_logger_chain()
-        )  # chain of responsibility
-        self._log_subject: LogSubject = (
-            LogManager.build_log_subject()
-        )  # observer design pattern
+        pass
+        # self._logger_chain: AbstractLogger = (
+        #     LogManager.fetch_logger_chain()
+        # )  # chain of responsibility
 
     def info(self, message: str) -> None:
         self._log(message, LogLevel.INFO)
@@ -26,4 +24,6 @@ class Logger:
         self._log(message, LogLevel.FATAL)
 
     def _log(self, message: str, level: LogLevel):
-        self._logger_chain.log(message, level, self._log_subject)
+        # self._logger_chain.log(message, level)
+        logger = LogManager.fetch_logger_chain()
+        logger.log(message, level)

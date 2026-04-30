@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import override
+try:
+    from typing import override
+except ImportError:  # Python < 3.12
+    def override(func):
+        return func
 
 
 class LogObserver(ABC):

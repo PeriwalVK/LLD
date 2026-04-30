@@ -1,3 +1,7 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+# if TYPE_CHECKING:
 from logging_system.chain_of_responsibility.abstract_logger import (
     AbstractLogger,
     DebugLogger,
@@ -18,8 +22,11 @@ from logging_system.observer_pattern.log_subject import LogSubject
 
 
 class LogManager:
+    _log_subject = None
+    _logger_chain = None
+
     @staticmethod
-    def build_logger_chain() -> AbstractLogger:
+    def _build_logger_chain() -> AbstractLogger:
         info_logger: AbstractLogger = InfoLogger()
         error_logger: AbstractLogger = ErrorLogger()
         debug_logger: AbstractLogger = DebugLogger()
@@ -32,7 +39,7 @@ class LogManager:
         return info_logger
 
     @staticmethod
-    def build_log_subject():
+    def _build_log_subject():
         subject: LogSubject = LogSubject()
 
         console_logger: LogObserver = ConsoleLogger()
@@ -51,3 +58,15 @@ class LogManager:
         subject.attach(LogLevel.FATAL, email_alert)
 
         return subject
+
+    @staticmethod
+    def fetch_log_subject() -> LogSubject:
+        if not LogManager._log_subject:
+            LogManager._log_subject = LogManager._build_log_subject()
+        return LogManager._log_subject
+
+    @staticmethod
+    def fetch_logger_chain() -> AbstractLogger:
+        if not LogManager._logger_chain:
+            LogManager._logger_chain = LogManager._build_logger_chain()
+        return LogManager._logger_chain
